@@ -7,6 +7,9 @@ public interface BrowseProcessor {
     interface OnItemReady {
         void onItemReady(Video video);
     }
+    interface OnItemRemove {
+        void onItemRemove(Video video);
+    }
     void process(VideoGroup videoGroup);
     void dispose();
 }

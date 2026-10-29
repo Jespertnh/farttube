@@ -1387,6 +1387,12 @@ public class PlaybackFragment extends SeekModePlaybackFragment implements Playba
                 adapter.add(group);
                 return;
             }
+        } else if (group.getAction() == VideoGroup.ACTION_REMOVE) {
+            VideoGroupObjectAdapter adapter = mVideoGroupAdapters.get(group.getId());
+            if (adapter != null) {
+                adapter.remove(group);
+            }
+            return;
         }
 
         VideoGroupObjectAdapter existingAdapter = GridFragmentHelper.findRelatedAdapter(mVideoGroupAdapters, group, this::freeze);

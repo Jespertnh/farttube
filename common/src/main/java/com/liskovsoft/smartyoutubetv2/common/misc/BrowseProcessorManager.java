@@ -9,10 +9,11 @@ import java.util.ArrayList;
 public class BrowseProcessorManager implements BrowseProcessor {
     private final ArrayList<BrowseProcessor> mProcessors;
 
-    public BrowseProcessorManager(Context context, OnItemReady onItemReady) {
+    public BrowseProcessorManager(Context context, OnItemReady onItemReady, OnItemRemove onItemRemove) {
         mProcessors = new ArrayList<>();
         mProcessors.add(new DeArrowProcessor(context, onItemReady));
         mProcessors.add(new UnlocalizedTitleProcessor(context, onItemReady));
+        mProcessors.add(new AiLabelProcessor(onItemRemove));
     }
 
     @Override

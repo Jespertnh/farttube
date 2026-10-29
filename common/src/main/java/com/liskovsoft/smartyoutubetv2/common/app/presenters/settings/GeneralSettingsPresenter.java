@@ -125,6 +125,8 @@ public class GeneralSettingsPresenter extends BasePresenter<Void> {
                 option -> mMediaServiceData.setContentHidden(MediaServiceData.CONTENT_MIXES, option.isSelected()),
                 mMediaServiceData.isContentHidden(MediaServiceData.CONTENT_MIXES)));
 
+        appendHideAiLabeled(options);
+
         options.add(UiOptionItem.from(getContext().getString(R.string.hide_watched_from_watch_later),
                 option -> mMediaServiceData.setContentHidden(MediaServiceData.CONTENT_WATCHED_WATCH_LATER, option.isSelected()),
                 mMediaServiceData.isContentHidden(MediaServiceData.CONTENT_WATCHED_WATCH_LATER)));
@@ -182,6 +184,32 @@ public class GeneralSettingsPresenter extends BasePresenter<Void> {
                 mMediaServiceData.isContentHidden(MediaServiceData.CONTENT_UPCOMING_CHANNEL)));
 
         settingsPresenter.appendCheckedCategory(getContext().getString(R.string.hide_unwanted_content), options);
+    }
+
+    /**
+     * YouTube shows the "Made with AI" label only on the watch page. So the feed videos are checked in the background.
+     */
+    private void appendHideAiLabeled(List<OptionItem> options) {
+        options.add(UiOptionItem.from(getContext().getString(R.string.hide_ai_labeled_everywhere),
+                option -> mMediaServiceData.setContentHidden(MediaServiceData.CONTENT_AI_ALL, option.isSelected()),
+                mMediaServiceData.isContentHidden(MediaServiceData.CONTENT_AI_ALL)));
+
+        int[][] sections = {
+                {R.string.hide_ai_labeled_home, MediaServiceData.CONTENT_AI_HOME},
+                {R.string.hide_ai_labeled_subscriptions, MediaServiceData.CONTENT_AI_SUBSCRIPTIONS},
+                {R.string.hide_ai_labeled_search, MediaServiceData.CONTENT_AI_SEARCH},
+                {R.string.hide_ai_labeled_trending, MediaServiceData.CONTENT_AI_TRENDING},
+                {R.string.hide_ai_labeled_channel, MediaServiceData.CONTENT_AI_CHANNEL},
+                {R.string.hide_ai_labeled_suggestions, MediaServiceData.CONTENT_AI_SUGGESTIONS},
+                {R.string.hide_ai_labeled_shorts, MediaServiceData.CONTENT_AI_SHORTS}
+        };
+
+        for (int[] section : sections) {
+            int content = section[1];
+            options.add(UiOptionItem.from(getContext().getString(section[0]),
+                    option -> mMediaServiceData.setContentHidden(content, option.isSelected()),
+                    mMediaServiceData.isContentHidden(content)));
+        }
     }
 
     private void appendContextMenuItemsCategory(AppDialogPresenter settingsPresenter) {

@@ -761,4 +761,12 @@
         <item quantity="one">%s second</item>
         <item quantity="other">%s seconds</item>
     </plurals>
+    <string name="hide_ai_labeled_everywhere">Hide AI-labeled videos everywhere</string>
+    <string name="hide_ai_labeled_home">Hide AI-labeled videos from Home and other sections</string>
+    <string name="hide_ai_labeled_subscriptions">Hide AI-labeled videos from Subscriptions</string>
+    <string name="hide_ai_labeled_search">Hide AI-labeled videos from the search result</string>
+    <string name="hide_ai_labeled_trending">Hide AI-labeled videos from Trending</string>
+    <string name="hide_ai_labeled_channel">Hide AI-labeled videos from a channel</string>
+    <string name="hide_ai_labeled_suggestions">Hide AI-labeled videos from suggestions</string>
+    <string name="hide_ai_labeled_shorts">Hide AI-labeled videos from Shorts</string>
 </resources>

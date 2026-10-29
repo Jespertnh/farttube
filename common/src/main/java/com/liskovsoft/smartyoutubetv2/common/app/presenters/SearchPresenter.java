@@ -47,7 +47,7 @@ public class SearchPresenter extends BasePresenter<SearchView> implements VideoG
 
     private SearchPresenter(Context context) {
         super(context);
-        mBrowseProcessor = new BrowseProcessorManager(getContext(), this::syncItem);
+        mBrowseProcessor = new BrowseProcessorManager(getContext(), this::syncItem, this::removeItem);
     }
 
     public static SearchPresenter instance(Context context) {

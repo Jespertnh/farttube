@@ -90,7 +90,7 @@ public class BrowsePresenter extends BasePresenter<BrowseView> implements Sectio
         mSectionsMapping = new HashMap<>();
         MediaServiceManager.instance().addAccountListener(this);
 
-        mBrowseProcessor = new BrowseProcessorManager(getContext(), this::syncItem);
+        mBrowseProcessor = new BrowseProcessorManager(getContext(), this::syncItem, this::removeItem);
         mActions = new ArrayList<>();
 
         initSectionMappings();

@@ -1,7 +1,34 @@
 # Plan: Hide videos YouTube labels as AI / "Altered or synthetic content"
 
-Status: **Draft / proposal** — nothing implemented yet.
-Branch: `feature/hide-ai-labeled-videos`
+Status: **Implemented, case B** — not yet built or tested on a device.
+Branch: `feature/hide-ai-labeled-videos` (here and in `Jespertnh/MediaServiceCore`)
+
+## Phase 0 findings (2026-10-29, 6 labeled videos, WEB + TVHTML5 clients)
+
+- The label is **only** on the watch page:
+  `engagementPanels[panelIdentifier=video-description-ep-identifier]
+  .structuredDescriptionContentRenderer.items[].howThisWasMadeSectionViewModel`
+  (`bodyHeader: "Made with AI"`, `bodyText: "Sounds or visuals were altered or fully generated."`).
+- All 6 videos came back in `search` results (TV and WEB) with **no** label or
+  badge. `player` responses don't have it either. The Shorts `reel_item_watch`
+  response does have it, but that is the Shorts player, not a feed.
+- The label text is localized and the TV payload has no language-independent
+  marker, so detection is based on whether the section is present.
+
+## What was built
+
+- **MediaServiceCore:** the label parser, `AiLabelCache` (persisted LRU of
+  10,000 entries; negative results expire after 3 days), and
+  `WatchNextService.isAiLabeled`. The background check sends no account data,
+  is cached, and runs at most 3 checks at once. Also added:
+  `MediaItemService.isAiLabeled/getAiLabeledObserve`, the `CONTENT_AI_*` flags
+  plus `isAiLabeledHidden(groupType)`, and the load-time filter in
+  `BaseMediaGroup` and `YouTubeHelper.filterIfNeeded`.
+- **farttube:** `AiLabelProcessor` is added to `BrowseProcessorManager`, so
+  Browse, Search, Channel, Channel uploads and player suggestions check each
+  newly loaded group in the background and remove confirmed cards. Also added:
+  the settings toggles, and `ACTION_REMOVE` support in
+  `PlaybackFragment.updateSuggestions`.
 
 ## Goal
 

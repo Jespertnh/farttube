@@ -48,7 +48,7 @@ public class ChannelPresenter extends BasePresenter<ChannelView> implements Vide
 
     public ChannelPresenter(Context context) {
         super(context);
-        mBrowseProcessor = new BrowseProcessorManager(getContext(), this::syncItem);
+        mBrowseProcessor = new BrowseProcessorManager(getContext(), this::syncItem, this::removeItem);
     }
 
     public static ChannelPresenter instance(Context context) {

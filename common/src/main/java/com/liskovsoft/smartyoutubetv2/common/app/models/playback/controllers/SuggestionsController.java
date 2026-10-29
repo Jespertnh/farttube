@@ -61,7 +61,8 @@ public class SuggestionsController extends BasePlayerController {
 
     @Override
     public void onInit() {
-        mBrowseProcessor = new BrowseProcessorManager(getContext(), PlaybackPresenter.instance(getContext())::syncItem);
+        mBrowseProcessor = new BrowseProcessorManager(getContext(), PlaybackPresenter.instance(getContext())::syncItem,
+                PlaybackPresenter.instance(getContext())::removeItem);
         mMediaItemService = YouTubeServiceManager.instance().getMediaItemService();
         mContentService = YouTubeServiceManager.instance().getContentService();
     }
